@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1039604691652",
+    "firebase_url": "https://cricket-b71a9.firebaseio.com",
+    "project_id": "cricket-b71a9",
+    "storage_bucket": "cricket-b71a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039604691652:android:ceb76dc71d9eef89",
+        "android_client_info": {
+          "package_name": "com.example.likhitha.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039604691652-di22u27go7ugh7hcn0fvlimgadi43dbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.likhitha.news",
+            "certificate_hash": "595aebfbc43c39cec0313419d33e228bec52cec5"
+          }
+        },
+        {
+          "client_id": "1039604691652-r7abtmobagmof5cgpj4e3idrikrefeim.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrUvjdqgRUZTmWRTeIrs0Rq64fq0ctRY8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039604691652-r7abtmobagmof5cgpj4e3idrikrefeim.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

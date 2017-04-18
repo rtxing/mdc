@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_signup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.likhitha.news.SignupActivity">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+
+        <ImageView
+            android:layout_width="@dimen/logo_w_h"
+            android:layout_height="@dimen/logo_w_h"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/ic_launcher" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#849981"
+                android:drawableLeft="@drawable/user"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:hint="Email"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="12dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:hint="Password"
+                android:background="#849981"
+                android:padding="10dp"
+                android:imeActionId="@+id/login"
+                android:inputType="textPassword"
+                android:layout_marginLeft="0dp"
+                android:maxLines="1"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/signup_button"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#FF6600"
+            android:text="@string/action_sign_in_short"
+            android:textAllCaps="false"
+            android:textSize="22dp"
+            android:textColor="#ffffff"
+            android:textStyle="normal" />
+
+        <!-- Link to Login Screen -->
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip"
+            android:background="@null"
+            android:text="@string/btn_link_to_login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="22dp" />
+    </LinearLayout>
+
+</RelativeLayout>
