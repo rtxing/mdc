@@ -1,4 +1,4 @@
-package com.example.likhitha.news;
+package com.example.mdc.news;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.example.likhitha.news.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,42 +52,47 @@ public class VerticlePagerAdapter extends PagerAdapter {
     ArrayList<String> adetails = new ArrayList<String>();
     ArrayList<String> adatetime = new ArrayList<String>();
     ArrayList<String> aurl = new ArrayList<String>();
-
+    private DatabaseReference childRef;
     Context mContext;
     LayoutInflater mLayoutInflater;
+    ArrayList<News> newsws = new ArrayList<News>();
     ImageView imageView;
     Cursor cursor;
     Bitmap bitmap = null;
     ViewGroup container;
+    DatabaseReference db;
     int position;
     public VerticlePagerAdapter(Context context) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //db = new DataBaseHelper(context);
         Log.e("hi","vew");
-        Firebase ref = new Firebase(Config.FIREBASE_URL);
-        Firebase cities = ref.child("News");
+        db = FirebaseDatabase.getInstance().getReference();
+        childRef = db.child("News");
+    //    Firebase ref = new Firebase(Config.FIREBASE_URL);
+       // Firebase cities = ref.child("News");
 
         Log.e("hi","vew");
 
-        cities.addValueEventListener(new ValueEventListener() {
+        childRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                 List<String> lst = new ArrayList<String>();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    //for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
-                    //Getting the data from snapshot
-                    News news = postSnapshot.getValue(News.class);
-                    atitle.add(news.getTitle());
-                    adetails.add(news.getDescription());
-                    adatetime.add(news.getDate());
-                    aimage.add(news.getImage());
-                    aurl.add(news.getUrl());
+                for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                  //  for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
+                        //Getting the data from snapshot
+
+                        News news = postSnapshot.getValue(News.class);
+                        atitle.add(news.getTitle());
+                        adetails.add(news.getDescription());
+                        adatetime.add(news.getDate());
+                        aimage.add(news.getImage());
+                        aurl.add(news.getUrl());
+                       // newsws.add(news);
+                 //   }
                     //lst.add(postSnapshot.getValue().toString());
                     // db.inserData(title, imageView, label, datetimeview, url);
                     // String value = "title: " + news.getTitle() + "\ndate: " + news.getDate() + "\ndescription: " + news.getDescription() + "\n id :" + news.getId() + "\n image:" + news.getImage() + "\n url :" + news.getUrl();
-
-
                 }
 
                 Log.e("title", String.valueOf(atitle));
@@ -92,12 +102,17 @@ public class VerticlePagerAdapter extends PagerAdapter {
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
-
-
         });
+
+
+
+
+
+
+
       /*  cursor = db.getAllNews();
 
 

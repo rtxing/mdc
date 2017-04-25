@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ff6600">
+
+        <LinearLayout
+
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:text="Match Summary"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_weight="80"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="35">
+
+            <ImageView
+                android:src="@drawable/background"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#353535"
+            android:weightSum="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/linear1">
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="70"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/logo1"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="30"
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="TEAM INDIA"
+                            android:textColor="#ff6600"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="center|left"
+                            />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Team India"
+                            android:textColor="#fff"
+                            android:textStyle="normal"
+                            android:layout_gravity="center"
+                            android:gravity="left"
+                            />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="BATTING: 58 - 22 - 3 - 6 - 263"
+                            android:textColor="#ff6600"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            />
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/linear2">
+
+                <TextView
+                    android:background="#FFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="70"
+                        android:padding="15dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/logo2"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="30"
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="TEAM AUSTRALIA"
+                            android:textColor="#ff6600"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="center|left"
+                            />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Team Australia"
+                            android:textColor="#fff"
+                            android:textStyle="normal"
+                            android:layout_gravity="center"
+                            android:gravity="left"
+                            />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="BATTING: 23 - 12 - 3 - 6 - 173"
+                            android:textColor="#ff6600"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            />
+
+
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:background="#FFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp" />
+
+                <TextView
+                    android:text="Live Score"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="#FFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="45"
+            android:background="#ff6600"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="PLAY BALL BY BALL"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/tv_ball" />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="PLAY OVER BY OVER"
+                    android:textColor="#FFF"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/tv_over" />
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

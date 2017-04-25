@@ -1,4 +1,4 @@
-package com.example.likhitha.news;
+package com.example.mdc.news;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -72,40 +72,6 @@ public class NewsFragment extends Fragment {
 
         return rootView;
     }
-   /* private void showJSON(String response){
-        DataBaseHelper db = new DataBaseHelper(getActivity());
-        String title="";
-        String image="";
-        String details="";
-        String datetime="";
-
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-
-            for(int i=0; i<result.length(); i++) {
-                JSONObject collegeData = result.getJSONObject(i);
-                title = collegeData.getString(Config.KEY_TITLE);
-                image = collegeData.getString(Config.KEY_IMAGE);
-                details = collegeData.getString(Config.KEY_DETAILS);
-                datetime = collegeData.getString(Config.KEY_DATETIME);
-                db.inserData(title, image, details, datetime);
-                mcursor = db.getAllNews();
-                mcursor.moveToFirst();
-                int iicount = mcursor.getInt(0);
-                if(iicount>0){
-                    verticalViewPager.setAdapter(new VerticlePagerAdapter(getActivity()));
-                }
-
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-    }*/
 
 
     @Override

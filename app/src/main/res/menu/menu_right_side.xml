@@ -3,7 +3,7 @@
     xmlns:myapp="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/btnMyMenu"
-        android:icon="@drawable/toggle1"
+        android:icon="@drawable/toggle2"
         android:title="Right Side Menu"
         myapp:showAsAction="always"/>
 </menu>

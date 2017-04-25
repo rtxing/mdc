@@ -1,15 +1,13 @@
-package com.example.likhitha.news;
+package com.example.mdc.news;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
+import android.content.Intent;
 import android.os.CountDownTimer;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,33 +17,23 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
-import org.jetbrains.annotations.Nullable;
-
-
-public class Play extends Fragment {
-    private static final long GAME_LENGTH_MILLISECONDS = 0;
+public class Overbyover extends AppCompatActivity {
+    private static final long GAME_LENGTH_MILLISECONDS = 60000;
     private boolean mGameIsInProgress;
     private long mTimerMilliseconds;
     private InterstitialAd mInterstitialAd;
     private CountDownTimer mCountDownTimer;
     private Button mRetryButton;
+    TextView timer;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
-        Log.e("hi","news");
-        View rootView = inflater.inflate(R.layout.fragment_play, container, false);
-        final TextView textView = ((TextView) rootView.findViewById(R.id.timer));
-       // verticalViewPager = (VerticalViewPager) rootView.findViewById(R.id.verticleViewPager);
-        getActivity().setTitle("Play");
-        setHasOptionsMenu(true);
-
-
-        Log.e("hi","news");
-        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
-        MobileAds.initialize(getActivity(), "ca-app-pub-5879449540669875~4077574146");
-        mInterstitialAd = new InterstitialAd(getActivity());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_overbyover);
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(this, "ca-app-pub-5879449540669875~4077574146");
+        mInterstitialAd = new InterstitialAd(this);
+        timer = (TextView) findViewById(R.id.timer);
         // Defined in res/values/strings.xml
         mInterstitialAd.setAdUnitId(getString(R.string.ad_unit_id));
         final AdRequest adRequest = new AdRequest.Builder().build();
@@ -57,8 +45,8 @@ public class Play extends Fragment {
         });
 
         // Create the "retry" button, which tries to show an interstitial between game plays.
-        mRetryButton = ((Button) rootView.findViewById(R.id.btn_submit));
-         mRetryButton.setVisibility(View.INVISIBLE);
+        mRetryButton = ((Button) findViewById(R.id.btn_oversubmit));
+        //mRetryButton.setVisibility(View.INVISIBLE);
         mRetryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,15 +55,6 @@ public class Play extends Fragment {
         });
 
         startGame();
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //you can set the title for your toolbar here for different fragments different titles
-
-
     }
     private void createTimer(final long milliseconds) {
         // Create the game timer, which counts down to the end of the level
@@ -89,14 +68,15 @@ public class Play extends Fragment {
             @Override
             public void onTick(long millisUnitFinished) {
                 mTimerMilliseconds = millisUnitFinished;
-                //textView.setText("seconds remaining: " + ((millisUnitFinished / 1000) + 1));
+                timer.setText("" + ((millisUnitFinished / 1000) + 1));
             }
 
             @Override
             public void onFinish() {
                 mGameIsInProgress = false;
-                //textView.setText("done!");
-                mRetryButton.setVisibility(View.VISIBLE);
+               // timer.setText("done!");
+                mInterstitialAd.show();
+              //  mRetryButton.setVisibility(View.VISIBLE);
             }
         };
     }
@@ -112,7 +92,7 @@ public class Play extends Fragment {
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
-            Toast.makeText(getActivity(), "Ad did not load", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
             startGame();
         }
     }
@@ -124,7 +104,7 @@ public class Play extends Fragment {
             mInterstitialAd.loadAd(adRequest);
         }
 
-        mRetryButton.setVisibility(View.INVISIBLE);
+       // mRetryButton.setVisibility(View.INVISIBLE);
         resumeGame(GAME_LENGTH_MILLISECONDS);
     }
 
@@ -135,4 +115,24 @@ public class Play extends Fragment {
         createTimer(milliseconds);
         mCountDownTimer.start();
     }
-  }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // automatically handle clicks on the Home/Up button, so long
+        MenuInflater menuInflater = getMenuInflater();
+        //menuInflater.inflate(R.menu.Profile_customer, menu);
+        menuInflater.inflate(R.menu.ballmain, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home: {
+                finish();
+                startActivity(new Intent(this, Newsmain.class));
+                return true;
+            }
+        }
+        return false;
+    }
+}

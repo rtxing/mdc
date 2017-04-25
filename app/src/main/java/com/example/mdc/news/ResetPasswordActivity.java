@@ -1,4 +1,4 @@
-package com.example.likhitha.news;
+package com.example.mdc.news;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="70"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+
+            >
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ivPlayerImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                app:civ_border_width="3dp"
+                app:civ_border_color="#FFF"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:weightSum="3">
+
+
+            <TextView
+                android:id="@+id/tvPlayersName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TEAM INDIA"
+                android:textColor="#ff6600"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                />
+
+
+            <TextView
+                android:id="@+id/tvPlayersDesc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="The first indian to go alone around the world.The Founder of Dream"
+                android:textColor="#fff"
+                android:textStyle="normal"
+                android:layout_gravity="center"
+                android:gravity="left"
+                />
+
+
+            <TextView
+                android:id="@+id/tvPlayerBatting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="BATTING: 58 - 22 - 3 - 6 - 263"
+                android:textColor="#ff6600"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="left|center"
+                />
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

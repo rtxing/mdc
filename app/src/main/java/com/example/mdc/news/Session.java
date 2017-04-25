@@ -1,4 +1,4 @@
-package com.example.likhitha.news;
+package com.example.mdc.news;
 
 /**
  * Created by likhitha on 2/8/2017.
