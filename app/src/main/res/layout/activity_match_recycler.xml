@@ -31,5 +31,6 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/list_match" />
+        android:id="@+id/list_match"
+        />
 </RelativeLayout>

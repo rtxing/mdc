@@ -3,12 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:padding="5dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-      >
+       >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,33 +25,35 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:background="#FF6600">
+            android:background="#FF6600"
+            android:gravity="center">
         <TextView
-        android:id="@+id/matchname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:id="@+id/matchname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="20"
             android:layout_below="@+id/matchicon"
-             android:textSize="20sp"
+            android:textSize="20sp"
             android:layout_marginLeft="10dp"
             android:gravity="center"
             android:textColor="@android:color/background_light"/>
-    <TextView
+        <TextView
         android:id="@+id/match_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="20"
-       android:layout_marginLeft="0dp"
+        android:layout_marginLeft="0dp"
         android:gravity="center"
+        android:textSize="20sp"
         android:textColor="@android:color/background_light"/>
-        <TextView
+         <TextView
             android:id="@+id/match_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:layout_weight="17.15"
             android:gravity="center"
             android:textColor="@android:color/background_light"/>

@@ -15,9 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
-import com.example.likhitha.news.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -25,6 +22,7 @@ import com.firebase.client.FirebaseError;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
@@ -69,12 +67,13 @@ public class VerticlePagerAdapter extends PagerAdapter {
         Log.e("hi","vew");
         db = FirebaseDatabase.getInstance().getReference();
         childRef = db.child("News");
+        Query query =  childRef.orderByChild("date");
     //    Firebase ref = new Firebase(Config.FIREBASE_URL);
        // Firebase cities = ref.child("News");
 
         Log.e("hi","vew");
 
-        childRef.addValueEventListener(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                 List<String> lst = new ArrayList<String>();
@@ -88,12 +87,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
                         adatetime.add(news.getDate());
                         aimage.add(news.getImage());
                         aurl.add(news.getUrl());
-                       // newsws.add(news);
-                 //   }
-                    //lst.add(postSnapshot.getValue().toString());
-                    // db.inserData(title, imageView, label, datetimeview, url);
-                    // String value = "title: " + news.getTitle() + "\ndate: " + news.getDate() + "\ndescription: " + news.getDescription() + "\n id :" + news.getId() + "\n image:" + news.getImage() + "\n url :" + news.getUrl();
-                }
+                       }
 
                 Log.e("title", String.valueOf(atitle));
                 Log.e("title", String.valueOf(adetails));
@@ -106,30 +100,11 @@ public class VerticlePagerAdapter extends PagerAdapter {
 
             }
         });
-
-
-
-
-
-
-
-      /*  cursor = db.getAllNews();
-
-
-        while (cursor.moveToNext()) {
-            atitle.add(cursor.getString(cursor.getColumnIndexOrThrow(db.KEY_TITLE)));
-            adetails.add(cursor.getString(cursor.getColumnIndexOrThrow(db.KEY_DESCRIPTION)));
-            adatetime.add(cursor.getString(cursor.getColumnIndexOrThrow(db.KEY_DATETIME)));
-            aimage.add(cursor.getString(cursor.getColumnIndexOrThrow(db.KEY_IMAGE)));
-            url.add(cursor.getString(cursor.getColumnIndexOrThrow(db.KEY_LINK)));
-        }*/
-
-
     }
 
     @Override
     public int getCount() {
-        Log.e("hi","hi");
+
         return 7;
          }
 
@@ -170,35 +145,8 @@ public class VerticlePagerAdapter extends PagerAdapter {
             label.setText(adetails.get(position));
             Log.e("label", String.valueOf(label));
             title.setText(atitle.get(position));
-
-
-         //   url.setText(aurl.get(position));
-
-            //imageView.setImageBitmap(aimage.get(position));
             datetimeview.setText((adatetime.get(position).replace("&zwnj;", "")));
         } catch (Exception e) {
-            /*String url = Config.DATA_URL;
-            StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                    showJSON(response);
-                }
-            },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //.makeText(getApplicationContext(),error.getMessage().toString(),Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-            RequestQueue requestQueue = Volley.newRequestQueue(mContext);
-            requestQueue.add(stringRequest);
-
-
-
-        }*/
-            //Firebase.setAndroidContext(VerticlePagerAdapter.this);
 
             Log.w("myApp", "error");
         }
@@ -208,36 +156,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
     }
 
 
-   /* private void showJSON(String response){
-        DataBaseHelper db = new DataBaseHelper(mContext);
-        String title="";
-        String image="";
-        String details="";
-        String datetime="";
-        Bitmap img=null;
 
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
-            // BackTask bt = new BackTask();
-
-            for(int i=0; i<result.length(); i++) {
-                JSONObject collegeData = result.getJSONObject(i);
-                title = collegeData.getString(Config.KEY_TITLE);
-                image = collegeData.getString(Config.KEY_IMAGE);
-                details = collegeData.getString(Config.KEY_DETAILS);
-                datetime = collegeData.getString(Config.KEY_DATETIME);
-                // bt.execute(image, title, details, datetime);
-                db.inserData(title, image, details, datetime);
-
-            }
-            db.close();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-    }*/
 
 
     @Override

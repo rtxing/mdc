@@ -3,6 +3,7 @@ package com.example.mdc.news;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +27,8 @@ import java.util.ArrayList;
  * Created by likhitha on 4/20/2017.
  */
 
-public class CardAdapter extends ArrayAdapter<String> {//BaseAdapter {
-    private String[] names;
+public class CardAdapter extends BaseAdapter {
+  /*  private String[] names;
     private String[] date;
     private String[] time;
     private Integer[] image;
@@ -58,8 +60,8 @@ public class CardAdapter extends ArrayAdapter<String> {//BaseAdapter {
         timeTxt.setText(time[position]);
         image1.setImageResource(image[position]);
         return  listViewItem;
-    }
-   /* Context c;
+    }*/
+   Context c;
     ArrayList<Match_list> matches;
     ArrayList<String> matchname;
     ArrayList<String> matchdate;
@@ -107,5 +109,5 @@ public class CardAdapter extends ArrayAdapter<String> {//BaseAdapter {
         dateTxt.setText(s.getMatchdate());
         timeTxt.setText(s.getMatchtime());
         return convertView;
-    }*/
+    }
 }

@@ -40,6 +40,13 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "1039604691652-unneseevrkf6idu8u9vua4t6gb10jd7n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.likhitha.news"
+              }
+            },
+            {
               "client_id": "1039604691652-r7abtmobagmof5cgpj4e3idrikrefeim.apps.googleusercontent.com",
               "client_type": 3
             }
