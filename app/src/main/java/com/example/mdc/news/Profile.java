@@ -64,6 +64,7 @@ public class Profile extends Fragment {
         tv_editprofile = (TextView) rootView.findViewById(R.id.tv_edit);
         imageprofile = (de.hdodenhof.circleimageview.CircleImageView) rootView.findViewById(R.id.image_profile);
         imagecamera = (ImageView) rootView.findViewById(R.id.image_camera);
+        final SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Session.PREFS_NAME, 0);
         try{
             String mypick = sharedPreferences.getString(Session.KEY_PROFILE_PICK, "Image Not Available");
             byte[] decodedString = Base64.decode(mypick, Base64.DEFAULT);
@@ -95,7 +96,12 @@ public class Profile extends Fragment {
         imagecamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFileChooser();
+                imagecamera.setClickable(false);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                photoPickerIntent.setType("image/*");
+                photoPickerIntent.putExtra("return-data", true);
+                startActivityForResult(photoPickerIntent, GALLARY_REQUEST_CODE);
+
 
             }
         });
@@ -104,20 +110,21 @@ public class Profile extends Fragment {
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        Log.e("image","image");
+
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        Log.e("image","image");
+
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        Log.e("image","image");
+
     }
 
     //handling the image chooser activity result
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("image","image");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLARY_REQUEST_CODE) {
-            pd.setMessage("Uploading image...");
-            pd.show();
+          //  pd.setMessage("Uploading image...");
+           // pd.show();
 
             try {
                 Uri uri = data.getData();

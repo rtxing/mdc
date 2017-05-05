@@ -12,8 +12,6 @@ public class Session {
     public static String KEY_Pphone = "phno";
 
     public static String KEY_SKIP = "skip";
-    public static String KEY_PROFILE_PICK = "profilepick";
-    public Session(String s) {
-        String KEY_email = "name";
-    }
+    public static String KEY_PROFILE_PICK = "imageprofile";
+
 }
