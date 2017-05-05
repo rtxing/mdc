@@ -6,11 +6,16 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
     Google Maps Android API v2, but you must specify either coarse or fine
     location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -45,16 +50,7 @@
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -73,11 +69,25 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Ads" />
-        <activity android:name=".Match_recycler" />
-        <activity android:name=".Teams_match" />
-        <activity android:name=".TeamMembers" />
-        <activity android:name=".Ballbyball" />
-        <activity android:name=".Overbyover"></activity>
+        <activity
+            android:name=".Match_recycler"
+            android:label="Matches List" />
+        <activity
+            android:name=".Teams_match"
+            android:label="Match Summary" />
+        <activity
+            android:name=".TeamMembers"
+            android:label="Team Summary" />
+        <activity
+            android:name=".Ballbyball"
+            android:label="Ball by Ball" />
+        <activity
+            android:name=".Overbyover"
+            android:label="Over by Over" />
+        <activity
+            android:name=".Profile"
+            android:label="Profile" />
+        <activity android:name=".ProfileEdit"></activity>
     </application>
 
 </manifest>

@@ -52,11 +52,11 @@ LinearLayout linear1,linear2;
 
         }
         db = FirebaseDatabase.getInstance().getReference();
-        childRef = db.child("Series/1/matches");
+        childRef = db.child("Series/1/matches/Match1");
         Log.e("childref", String.valueOf(childRef));
-         Query query =  childRef.child(name);
-        Log.e("query", String.valueOf(query));
-        query.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+       //  Query query =  childRef.child(name);
+        //Log.e("query", String.valueOf(query));
+        childRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                 for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

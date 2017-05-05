@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1039604691652-fd8mnndnsvou0alcrq2ctjuc06ea6d58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.likhitha.news",
+            "certificate_hash": "2ad3edb303f2807e6d913580cc685726f1e70315"
+          }
+        },
+        {
           "client_id": "1039604691652-di22u27go7ugh7hcn0fvlimgadi43dbl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

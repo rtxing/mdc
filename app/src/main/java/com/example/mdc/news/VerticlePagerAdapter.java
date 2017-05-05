@@ -63,22 +63,23 @@ public class VerticlePagerAdapter extends PagerAdapter {
     public VerticlePagerAdapter(Context context) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //db = new DataBaseHelper(context);
-        Log.e("hi","vew");
-        db = FirebaseDatabase.getInstance().getReference();
-        childRef = db.child("News");
-        Query query =  childRef.orderByChild("date");
-    //    Firebase ref = new Firebase(Config.FIREBASE_URL);
-       // Firebase cities = ref.child("News");
+        try {
+            //db = new DataBaseHelper(context);
+            Log.e("hi", "vew");
+            db = FirebaseDatabase.getInstance().getReference();
+            childRef = db.child("News");
+            Query query = childRef.orderByChild("date").limitToLast(7);
+            //    Firebase ref = new Firebase(Config.FIREBASE_URL);
+            // Firebase cities = ref.child("News");
 
-        Log.e("hi","vew");
+            Log.e("hi", "vew");
 
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
-                List<String> lst = new ArrayList<String>();
-                for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                  //  for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
+                    List<String> lst = new ArrayList<String>();
+                    for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        //  for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
                         //Getting the data from snapshot
 
                         News news = postSnapshot.getValue(News.class);
@@ -87,19 +88,24 @@ public class VerticlePagerAdapter extends PagerAdapter {
                         adatetime.add(news.getDate());
                         aimage.add(news.getImage());
                         aurl.add(news.getUrl());
-                       }
+                    }
 
-                Log.e("title", String.valueOf(atitle));
-                Log.e("title", String.valueOf(adetails));
-                Log.e("title", String.valueOf(adatetime));
-                Log.e("title", String.valueOf(aimage));
-            }
+                    Log.e("title", String.valueOf(atitle));
+                    Log.e("title", String.valueOf(adetails));
+                    Log.e("title", String.valueOf(adatetime));
+                    Log.e("title", String.valueOf(aimage));
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

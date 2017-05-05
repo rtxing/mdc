@@ -64,6 +64,7 @@
                     android:layout_marginTop="80dp"
                     android:layout_marginLeft="200dp"
                     android:text="Read More....."
+                    android:visibility="gone"
                     android:textColor="?android:attr/colorEdgeEffect"
                     android:textSize="20sp"/>
             </LinearLayout>

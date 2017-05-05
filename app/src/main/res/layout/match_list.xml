@@ -4,60 +4,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:padding="5dp">
+    android:background="#2D5728"
+    android:padding="10dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/match_icon"
-            android:layout_width="413dp"
-            android:layout_height="244dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/image2"/>
+            <ImageView
+                android:id="@+id/match_icon"
+                android:layout_width="413dip"
+                android:layout_height="250dip"
+                android:adjustViewBounds="true"
+                android:src="@drawable/image2"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:background="#FF6600"
-            android:gravity="center">
-        <TextView
-            android:id="@+id/matchname"
+            <ImageView
+                android:id="@+id/imagef"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/live"
+                 android:visibility="gone"
+                android:layout_marginTop="11dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginEnd="17dp" />
+        </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="#FF6600"
+                android:gravity="center">
+            <TextView
+                android:id="@+id/matchname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:layout_below="@+id/matchicon"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="@android:color/background_light"/>
+            <TextView
+            android:id="@+id/match_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="20"
-            android:layout_below="@+id/matchicon"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="0dp"
             android:gravity="center"
-            android:textColor="@android:color/background_light"/>
-        <TextView
-        android:id="@+id/match_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="20"
-        android:layout_marginLeft="0dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@android:color/background_light"/>
-         <TextView
-            android:id="@+id/match_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
             android:textSize="20sp"
-            android:layout_weight="17.15"
-            android:gravity="center"
             android:textColor="@android:color/background_light"/>
-            </LinearLayout>
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+             <TextView
+                android:id="@+id/match_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:textSize="20sp"
+                android:layout_weight="17.15"
+                android:gravity="center"
+                android:textColor="@android:color/background_light"/>
+                </LinearLayout>
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

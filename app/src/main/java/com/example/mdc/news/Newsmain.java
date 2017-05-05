@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
@@ -27,6 +29,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -38,10 +41,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Newsmain extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Animation.AnimationListener {
     public static int navItemIndex = 0;
     private Button sendEmail;
-     DrawerLayout drawer;
+    DrawerLayout drawer;
     private EditText oldEmail, password;
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
@@ -50,66 +53,147 @@ public class Newsmain extends AppCompatActivity
     View view;
     private ViewGroup hiddenPanel;
     private boolean isPanelShown;
+    private boolean isHidden;
+
+    LinearLayout llHeader, llFooter, llMain;
+    int click = 0;
+    Animation slideup, slidedown;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newsmain);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Firebase.setAndroidContext(this);
-        hiddenPanel = (ViewGroup)findViewById(R.id.content_main);
-        FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        try {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            Firebase.setAndroidContext(this);
+            //  actionBar.setDisplayHomeAsUpEnabled(true);
+            CardView cardView = (CardView) findViewById(R.id.card_view);
+            llHeader = (LinearLayout) findViewById(R.id.llHeader);
+            llFooter = (LinearLayout) findViewById(R.id.llFooter);
+
+            llMain = (LinearLayout) findViewById(R.id.llMain);
+            hiddenPanel = (ViewGroup) findViewById(R.id.content_main);
+            FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
+            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
        /* ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);*/
-        //toggle.syncState();
-        displaySelectedScreen(R.id.nav_home);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            //toggle.syncState();
+            displaySelectedScreen(R.id.nav_home);
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                if (drawer.isDrawerOpen(Gravity.RIGHT)) {
-                    drawer.closeDrawer(Gravity.RIGHT);
-                } else {
-                    drawer.openDrawer(Gravity.RIGHT);
+                @Override
+                public void onClick(View v) {
+                    if (drawer.isDrawerOpen(Gravity.RIGHT)) {
+                        drawer.closeDrawer(Gravity.RIGHT);
+                    } else {
+                        drawer.openDrawer(Gravity.RIGHT);
+                    }
                 }
-            }
-        });
+            });
 
-       toggle = new ActionBarDrawerToggle(this,  drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
-         //   @Override
-            public boolean onOptionsItemSelected(MenuItem item) {
+                //   @Override
+                public boolean onOptionsItemSelected(MenuItem item) {
 
-                   if (item.getItemId() == R.id.btnMyMenu) {
-                            if (drawer.isDrawerOpen(Gravity.RIGHT)) {
-                                drawer.closeDrawer(Gravity.RIGHT);
-                            } else {
-                                drawer.openDrawer(Gravity.RIGHT);
-                            }
-                            return true;
+                    if (item.getItemId() == R.id.btnMyMenu) {
+                        if (drawer.isDrawerOpen(Gravity.RIGHT)) {
+                            drawer.closeDrawer(Gravity.RIGHT);
+                        } else {
+                            drawer.openDrawer(Gravity.RIGHT);
                         }
                         return true;
                     }
-       };
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        frame.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                openAndroidBottomMenu(view);
+                    return true;
+                }
+            };
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            frame.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                  //  openAndroidBottomMenu(view);
 
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
 
+           /* cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isHidden) showSystemUi();
+                    else hideSystemUi();
+                }
+            });
+
+           /* slideup = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.slide_up);
+            slideup.setAnimationListener(this);
+
+
+            slidedown = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.slide_down);
+            slidedown.setAnimationListener(this);
+
+
+            llMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (click == 0) {
+                        llHeader.startAnimation(slidedown);
+                        llFooter.startAnimation(slideup);
+
+                        llHeader.setVisibility(View.VISIBLE);
+                        llFooter.setVisibility(View.VISIBLE);
+                        click++;
+                    } else {
+
+                        llHeader.setVisibility(View.GONE);
+                        llFooter.setVisibility(View.GONE);
+                        click = 0;
+
+                    }
+
+                }
+            });*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+  /*  @Override
+    protected void onResume() {
+        super.onResume();
+
+        hideSystemUi();
+    }
+
+    private void hideSystemUi() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE
+        );
+        getSupportActionBar().hide();
+        isHidden = true;
+       // toggle.setText("Hide");
+    }
+
+    private void showSystemUi() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_VISIBLE
+        );
+
+        getSupportActionBar().show();
+        isHidden = false;
+    }
+       // toggle.setText("Show");
   /*  public void slideUpDown(final View view) {
         if (!isPanelShown()) {
             // Show the panel
@@ -131,7 +215,8 @@ public class Newsmain extends AppCompatActivity
 
     private boolean isPanelShown() {
         return hiddenPanel.getVisibility() == View.VISIBLE;
-    }*/
+    }
+
     public void openAndroidBottomMenu(View view) {
 
         new BottomSheet.Builder(this).sheet(R.menu.bottom_menu_item).listener(new DialogInterface.OnClickListener() {
@@ -206,6 +291,12 @@ public class Newsmain extends AppCompatActivity
                 Log.e("hi","play");
                 fragment = new Match_recycler();
                 break;
+            case R.id.nav_profile:
+                navItemIndex = 0;
+                //setToolbarTitle();
+                Log.e("hi","play");
+                fragment = new Profile();
+                break;
             //default:
                // fragment = new NewsFragment();
                // break;
@@ -223,6 +314,21 @@ public class Newsmain extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
       }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
 
 
   /*  @Override

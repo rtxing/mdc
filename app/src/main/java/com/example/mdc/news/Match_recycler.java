@@ -86,7 +86,9 @@ public class Match_recycler extends Fragment {
                 startActivity(new Intent(getActivity(),Teams_match.class));
             }
         });*/
+
        final ArrayList<Match_list> matches = new ArrayList<>();
+
         //  matchlist = new ArrayList<>();
         //  databaseReference = FirebaseDatabase.getInstance().getReference();
         // recyclerView = (RecyclerView) rootView.findViewById(R.id.task_list);
@@ -96,33 +98,31 @@ public class Match_recycler extends Fragment {
         //INITIALIZE FIREBASE DB
         db = FirebaseDatabase.getInstance().getReference();
         childRef = db.child("Series/1/matches");
-       // Query query = childRef;
+        Query query = childRef.orderByChild("status").equalTo("1");
         Log.e("adapter", String.valueOf(childRef));
         try {
-            childRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            query.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
                 @Override
 
                 public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                     Log.e("data", String.valueOf(dataSnapshot.getChildren()));
-                   team = dataSnapshot.getValue();
+                  //  team = dataSnapshot.getValue();
                     for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                        // for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
-                        //Getting the data from snapshot
-                        Log.e("post", String.valueOf(dataSnapshot.getChildren().));
-                        Match_list match = postSnapshot.getValue(Match_list.class);
-                        //     matchname.add(match.getMatchname());
-                        // matchimage.add(match.getMatchimage());
-                        // matchdate.add(match.getMatchdate());
-                        // matchtime.add(match.getMatchtime());
-                        matches.add(match);
+                     // for (int i = 1; i < postSnapshot.getChildrenCount(); i++) {
+                            //Getting the data from snapshot
+                            Log.e("post", String.valueOf(dataSnapshot.getChildren()));
+                            Match_list match = postSnapshot.getValue(Match_list.class);
+                            //     matchname.add(match.getMatchname());
+                            // matchimage.add(match.getMatchimage());
+                            // matchdate.add(match.getMatchdate());
+                            // matchtime.add(match.getMatchtime());
+                            matches.add(match);
+                       // }
+                        adapter = new CardAdapter(getActivity(), matches); //matchname, matchimage, matchdate, matchtime);
+                        lv.setAdapter(adapter);
                     }
-                    adapter = new CardAdapter(getActivity(), matches); //matchname, matchimage, matchdate, matchtime);
-                    lv.setAdapter(adapter);
-
                 }
-
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -137,13 +137,12 @@ public class Match_recycler extends Fragment {
          @Override
          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              Intent intent = new Intent(getActivity(), Teams_match.class);
-             intent.putExtra("matchname", String.valueOf(team));
-             Log.e("datasnapshot", String.valueOf(team));
+            // intent.putExtra("matchname", String.valueOf(team));
+             //Log.e("datasnapshot", String.valueOf(team));
              startActivity(intent);
             }
      });
         return rootView;
-
     }
 }
 

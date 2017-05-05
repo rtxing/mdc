@@ -20,44 +20,20 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_weight="10"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ball By Ball"
-                android:textColor="#FFF"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:layout_gravity="center"
-                android:gravity="center"/>
-
-
-
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="90"
             android:layout_gravity="right"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="33dp"
                 android:layout_alignParentTop="true"
                 android:textColor="#FFF"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="14dp"
-                android:textSize="25sp"
+               android:textSize="25sp"
                 android:id="@+id/timer" />
 
 
@@ -100,81 +76,79 @@ android:orientation="vertical">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="15dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="140dp">
-
-                            <TextView
-                                android:text="BOWLING"
+                        <TextView
+                                android:text="BOWLING:"
                                 android:textSize="22sp"
                                 android:textColor="#ff6600"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="OPTIONS:"
-                                android:textSize="22sp"
-                                android:textColor="#fff"/>
 
                             <LinearLayout
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
+                           <RadioGroup
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:id="@+id/rg_bowl"
+                               android:layout_marginLeft="100dp" >
                                 <RadioButton
                                     android:text="Offspin"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_1"
+                                   />
 
                                 <RadioButton
                                     android:text="Legspin"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_2"/>
 
                                 <RadioButton
                                     android:text="Bouncer"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_3"/>
 
                                 <RadioButton
                                     android:text="Inswing"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_4"/>
 
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
 
                                 <RadioButton
                                     android:text="Outswing"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_5"/>
                                 <RadioButton
                                     android:text="Wide"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/bow_6"/>
 
-
-                            </LinearLayout>
+</RadioGroup>
 
 
                         </LinearLayout>
@@ -191,73 +165,80 @@ android:orientation="vertical">
                             android:gravity="center_vertical"
                             android:layout_marginLeft="15dp"
                             android:layout_width="match_parent"
-                            android:layout_height="120dp">
+                            android:layout_height="wrap_content">
 
                             <TextView
-                                android:text="SHOT"
+                                android:text="SHOT:"
                                 android:textSize="22sp"
                                 android:textColor="#ff6600"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="OPTIONS:"
-                                android:textSize="22sp"
-                                android:textColor="#fff"/>
+
 
 
                             <LinearLayout
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
+                                <RadioGroup
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/rg_shot"
+                                    android:layout_marginLeft="90dp">
                                 <RadioButton
                                     android:text="Uppercut"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_1"/>
 
                                 <RadioButton
                                     android:text="pull"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_2"/>
 
                                 <RadioButton
                                     android:text="Defence"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_3"/>
 
                                 <RadioButton
                                     android:text="Sweep"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
-
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <RadioButton
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_4"/>
+                                    <RadioButton
                                     android:text="Cover"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_5"/>
                                 <RadioButton
                                     android:text="Square"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/shot_6"/>
 
-
+                                </RadioGroup>
                             </LinearLayout>
 
 
@@ -280,69 +261,89 @@ android:orientation="vertical">
                             android:layout_height="120dp">
 
                             <TextView
-                                android:text="RUNS"
+                                android:text="RUNS:"
                                 android:textSize="22sp"
                                 android:textColor="#ff6600"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="OPTIONS:"
-                                android:textSize="22sp"
-                                android:textColor="#fff"/>
+
 
                             <LinearLayout
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
+                                <RadioGroup
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:id="@+id/rg_runs">
                                 <RadioButton
                                     android:text="0"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_1"/>
 
                                 <RadioButton
                                     android:text="1"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_2"/>
 
                                 <RadioButton
                                     android:text="2"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_3"/>
 
                                 <RadioButton
                                     android:text="3"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_4"/>
 
                                 <RadioButton
                                     android:text="4"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_5"/>
 
 
                                 <RadioButton
                                     android:text="5"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_6"/>
 
 
                                 <RadioButton
                                     android:text="6"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/run_7"/>
 
-
+</RadioGroup>
 
 
                             </LinearLayout>
@@ -363,64 +364,71 @@ android:orientation="vertical">
                             android:layout_height="120dp">
 
                             <TextView
-                                android:text="OUT"
+                                android:text="OUT:"
                                 android:textSize="22sp"
                                 android:textColor="#ff6600"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="OPTIONS:"
-                                android:textSize="22sp"
-                                android:textColor="#fff"/>
+
 
 
                             <LinearLayout
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
+                                <RadioGroup
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:id="@+id/rg_out">
                                 <RadioButton
                                     android:text="Bowled"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/out_1"/>
 
                                 <RadioButton
                                     android:text="Caught"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/out_2"/>
 
                                 <RadioButton
                                     android:text="LBW"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/out_3"/>
 
                                 <RadioButton
                                     android:text="Runout"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/out_4"/>
 
 
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:orientation="horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
 
                                 <RadioButton
                                     android:text="Stumped"
                                     android:textColor="#FFF"
+                                    android:buttonTint="#FFF"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:id="@+id/out_5"/>
+</RadioGroup>
 
                             </LinearLayout>
 
@@ -450,20 +458,13 @@ android:orientation="vertical">
                         android:layout_gravity="bottom|right"
                         android:gravity="bottom|right">
 
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:background="#ff6600"
-                            android:text="Submit"
-                            android:textColor="#FFF"
-                            android:textSize="22sp"
-                            android:textStyle="bold"
-                            android:id="@+id/btn_ballsubmit">
-
-                        </Button>
-
-
+                        <ImageView
+                            android:layout_width="62dp"
+                            android:layout_height="42dp"
+                            android:scaleType="fitXY"
+                            android:gravity="center"
+                            android:src="@drawable/submit"
+                            android:id="@+id/btn_ballsubmit"/>
                     </LinearLayout>
 
 

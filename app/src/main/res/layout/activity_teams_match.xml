@@ -21,27 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:text="Match Summary"
-                    android:textColor="#FFF"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-
-
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_weight="80"
@@ -276,7 +255,7 @@
                     android:layout_height="2dp" />
 
                 <TextView
-                    android:text="Live Score"
+
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
