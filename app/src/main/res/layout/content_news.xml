@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:padding="5dp"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    >
 
 
     <android.support.v7.widget.CardView
@@ -17,215 +19,82 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="100"
+            android:orientation="vertical"
+            android:layout_marginTop="0dp">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:src="@drawable/loader"
-                android:scaleType="fitXY"
-                android:longClickable="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="70">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/loader"
+                    android:scaleType="fitXY"
+                    android:longClickable="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/datetimeview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/textTitle" />
-
+                    android:id="@+id/textTitle"
+                    android:layout_gravity="start"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:gravity="start"
+                    android:textColor="#000"/>
 
                 <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"/>
-
-                <TextView
-                    android:id="@+id/textlink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="250dp"
-                    android:text="Read More....."
                     android:textSize="20sp"
-                    android:visibility="gone"/>
-            </LinearLayout>
-        </LinearLayout>
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:textStyle="normal"
 
-
-    <LinearLayout
-        android:id="@+id/home_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/ad_holder"
-        android:orientation="vertical" >
-
-        <LinearLayout
-
-            android:visibility="gone"
-            android:id="@+id/llHeader"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_above="@+id/ad_holder"
-            android:background="#ff6600" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                    />
 
                 <TextView
-                    android:id="@+id/tvHeaderText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingLeft="5dp"
-                    android:text="@string/app_name"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/llMain"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical" >
-
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ad_holder"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom" >
-
-        <LinearLayout
-            android:id="@+id/llFooter"
-            android:visibility="gone"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical"
-            android:background="#ff6861"
-
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="100"
-                android:orientation="horizontal"
-                android:background="#ff6600">
-
-                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="50">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textlink"
+                    android:text="Read More....."
 
-                    <LinearLayout
-                        android:layout_marginLeft="8dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:background="#ff6600"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    android:textSize="22sp"
+                    android:textStyle="normal"
+                    android:layout_marginTop="15dp"
 
-
-                        <ImageView
-
-                            android:layout_gravity="center"
-                            android:src="@drawable/save"
-                            android:layout_width="72dp"
-                            android:layout_height="72dp" />
-
-                        <!--<TextView-->
-                        <!--android:text="Save"-->
-                        <!--android:textColor="#FFF"-->
-                        <!--android:textStyle="bold"-->
-                        <!--android:layout_gravity="center"-->
-                        <!--android:gravity="center"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textSize="22sp"/>-->
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="50"
                     android:layout_gravity="right"
-                    android:gravity="right">
-
-                    <LinearLayout
-                        android:layout_marginLeft="8dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:background="#ff6600"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-
-                        <ImageView
-
-                            android:layout_gravity="center"
-                            android:src="@drawable/share"
-                            android:layout_width="42dp"
-                            android:layout_height="42dp" />
-
-                        <!--<TextView-->
-                        <!--android:text="Share"-->
-                        <!--android:textColor="#FFF"-->
-                        <!--android:textStyle="bold"-->
-                        <!--android:layout_gravity="right"-->
-                        <!--android:gravity="right"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textSize="22sp"/>-->
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-
+                    android:gravity="right"
+                    android:textColor="#ff6600"/>
             </LinearLayout>
-
-
 
         </LinearLayout>
 
 
 
-    </LinearLayout>
+
+
     </android.support.v7.widget.CardView>
+
+
 </LinearLayout>

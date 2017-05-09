@@ -30,4 +30,7 @@ public class UserProfile {
     public  String getPid() {
         return pid;
     }
+    public String getName(){
+        return name;
+    }
 }

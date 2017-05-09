@@ -9,9 +9,10 @@ public class Session {
     public static String KEY_email = "email";
     public static String KEY_phone = "phone";
     public static String KEY_phone1 = "phone_no";
-    public static String KEY_Pphone = "phno";
+    public static String KEY_CITY = "city";
+    public static String KEY_NAME = "name";
 
     public static String KEY_SKIP = "skip";
-    public static String KEY_PROFILE_PICK = "imageprofile";
+    public static String KEY_PROFILE_PICK = "image";
 
 }

@@ -1,8 +1,12 @@
 package com.example.mdc.news;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +28,8 @@ public class ProfileEdit extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         firebaseAuth = FirebaseAuth.getInstance();
 
 
@@ -71,17 +77,25 @@ public class ProfileEdit extends AppCompatActivity implements View.OnClickListen
         String city = etcity.getText().toString().trim();
 
         String id = databaseReference.push().getKey();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         //creating a userinformation object
-        UserProfile userInformation = new UserProfile(id, name, dob, phone, email, city);
+        UserProfile userInformation = new UserProfile(user.getUid(), name, dob, phone, email, city);
 
         //getting the current logged in user
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-
-        databaseReference.child(user.getUid()).setValue(userInformation);
+        databaseReference.child(user.getUid()).child("name").setValue(name);
+        databaseReference.child(user.getUid()).child("dob").setValue(dob);
+        databaseReference.child(user.getUid()).child("phone").setValue(phone);
+        databaseReference.child(user.getUid()).child("email").setValue(email);
+        databaseReference.child(user.getUid()).child("city").setValue(city);
+        databaseReference.child(user.getUid()).child("pid").setValue(user.getUid());
+        SharedPreferences sharedPreferences = getSharedPreferences(Session.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Session.KEY_CITY, city);
+        editor.putString(Session.KEY_NAME, name);
+        editor.commit();
 
         //displaying a success toast
-        Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
+         Toast.makeText(this, "Profile Updated...!!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -100,5 +114,28 @@ public class ProfileEdit extends AppCompatActivity implements View.OnClickListen
             saveUserInformation();
         }
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // automatically handle clicks on the Home/Up button, so long
+        MenuInflater menuInflater = getMenuInflater();
+        //menuInflater.inflate(R.menu.Profile_customer, menu);
+        menuInflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home: {
+                finish();
+                getFragmentManager().popBackStack();
+
+
+                // startActivity(new Intent(this, Profile.class));
+                return true;
+            }
+        }
+        return false;
     }
 }

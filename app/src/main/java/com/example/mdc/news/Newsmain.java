@@ -54,7 +54,7 @@ public class Newsmain extends AppCompatActivity
     private ViewGroup hiddenPanel;
     private boolean isPanelShown;
     private boolean isHidden;
-
+    private FirebaseAuth firebaseAuth;
     LinearLayout llHeader, llFooter, llMain;
     int click = 0;
     Animation slideup, slidedown;
@@ -70,10 +70,10 @@ public class Newsmain extends AppCompatActivity
             Firebase.setAndroidContext(this);
             //  actionBar.setDisplayHomeAsUpEnabled(true);
             CardView cardView = (CardView) findViewById(R.id.card_view);
-            llHeader = (LinearLayout) findViewById(R.id.llHeader);
-            llFooter = (LinearLayout) findViewById(R.id.llFooter);
-
-            llMain = (LinearLayout) findViewById(R.id.llMain);
+          //  llHeader = (LinearLayout) findViewById(R.id.llHeader);
+          //  llFooter = (LinearLayout) findViewById(R.id.llFooter);
+            firebaseAuth = FirebaseAuth.getInstance();
+          //  llMain = (LinearLayout) findViewById(R.id.llMain);
             hiddenPanel = (ViewGroup) findViewById(R.id.content_main);
             FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
             drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -296,6 +296,14 @@ public class Newsmain extends AppCompatActivity
                 //setToolbarTitle();
                 Log.e("hi","play");
                 fragment = new Profile();
+                break;
+            case R.id.nav_logout:
+                navItemIndex = 0;
+                //setToolbarTitle();
+                Log.e("hi","play");
+                firebaseAuth.signOut();
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
                 break;
             //default:
                // fragment = new NewsFragment();

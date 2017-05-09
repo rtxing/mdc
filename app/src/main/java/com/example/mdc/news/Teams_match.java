@@ -56,7 +56,7 @@ LinearLayout linear1,linear2;
         Log.e("childref", String.valueOf(childRef));
        //  Query query =  childRef.child(name);
         //Log.e("query", String.valueOf(query));
-        childRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+       /* childRef.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(com.google.firebase.database.DataSnapshot dataSnapshot) {
                 for (com.google.firebase.database.DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -79,7 +79,7 @@ LinearLayout linear1,linear2;
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
     catch (Exception e)
     {
@@ -133,8 +133,8 @@ LinearLayout linear1,linear2;
         switch (item.getItemId()) {
 
             case android.R.id.home: {
-                finish();
-                startActivity(new Intent(Teams_match.this, Newsmain.class));
+              //  finish();
+                getFragmentManager().popBackStack();
                 return true;
             }
         }

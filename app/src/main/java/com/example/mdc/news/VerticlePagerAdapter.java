@@ -129,7 +129,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
         final TextView title = (TextView) itemView.findViewById(R.id.textTitle);
 
         final TextView label = (TextView) itemView.findViewById(R.id.textView);
-        final TextView datetimeview = (TextView) itemView.findViewById(R.id.datetimeview);
+       // final TextView datetimeview = (TextView) itemView.findViewById(R.id.datetimeview);
         final TextView url = (TextView) itemView.findViewById(R.id.textlink);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
         Log.e("hi","test");
@@ -151,7 +151,7 @@ public class VerticlePagerAdapter extends PagerAdapter {
             label.setText(adetails.get(position));
             Log.e("label", String.valueOf(label));
             title.setText(atitle.get(position));
-            datetimeview.setText((adatetime.get(position).replace("&zwnj;", "")));
+            //datetimeview.setText((adatetime.get(position).replace("&zwnj;", "")));
         } catch (Exception e) {
 
             Log.w("myApp", "error");
