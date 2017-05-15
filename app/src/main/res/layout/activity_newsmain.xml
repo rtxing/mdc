@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:layout_gravity="right"
     android:fitsSystemWindows="true"
-    tools:openDrawer="end">
+    >
 
     <include
         layout="@layout/app_bar_newsmain"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

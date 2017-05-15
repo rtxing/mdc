@@ -133,14 +133,13 @@ public class VerticlePagerAdapter extends PagerAdapter {
         final TextView url = (TextView) itemView.findViewById(R.id.textlink);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
         Log.e("hi","test");
-
-        url.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(aurl.get(position)));
-                itemView.getContext().startActivity(intent);
-            }
-        });
+//        url.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//              final Intent intent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(aurl.get(position)));
+//                itemView.getContext().startActivity(intent);
+//               }
+//        });
 
         try {
             new DownloadImageFromInternet((ImageView) itemView.findViewById(R.id.imageView))

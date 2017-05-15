@@ -44,7 +44,7 @@ import static java.lang.System.out;
 public class Profile extends Fragment {
     private static final int RESULT_OK = 100;
     ImageView img_editprofile;
-    TextView tv_editprofile,tv_editedname,tv_editlive;
+    TextView tv_editprofile,tv_editedname,tv_editlive,tv_friends;
     SharedPreferences sharedPreferences;
     ImageView imagecamera,nameedit,changepswd;
     boolean isImageFitToScreen;
@@ -57,11 +57,12 @@ public class Profile extends Fragment {
     static final int CROP_PICK = 321;
     ProgressDialog pd;
     String mypick;
+    Bitmap bitmap;
     ArrayList<UserProfile> userProfiles =new ArrayList<>();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     //creating a storage reference. Replace the below URL with your Firebase storage URL.
     //StorageReference storageRef = storage.getReferenceFromUrl("gs://cricket-b71a9.appspot.com");
-    DatabaseReference ref,ref1;
+    DatabaseReference ref,ref1,ref2;
     DatabaseReference databaseReference,childref;
     FirebaseUser user;
     @Override
@@ -81,9 +82,16 @@ public class Profile extends Fragment {
         tv_editedname = (TextView) rootView.findViewById(R.id.tv_name);
         changepswd = (ImageView) rootView.findViewById(R.id.img_changepswd);
         tv_editlive = (TextView) rootView.findViewById(R.id.tv_lives);
+        tv_friends = (TextView) rootView.findViewById(R.id.tv_frnds);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-
+      tv_friends.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), ContactsActivity.class);
+              startActivity(intent);
+          }
+      });
         changepswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +114,7 @@ public class Profile extends Fragment {
         try{
             String mypick = sharedPreferences.getString(Session.KEY_PROFILE_PICK, "Image Not Available");
             Log.e("image","image");
+            //decodeFromFirebaseBase64(mypick);
             byte[] decodedString = Base64.decode(mypick, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             imageprofile.setImageBitmap(decodedByte);
@@ -220,7 +229,7 @@ public class Profile extends Fragment {
 
         intent.setAction(Intent.ACTION_GET_CONTENT);
 
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"),  GALLARY_REQUEST_CODE);
     }
 
     //handling the image chooser activity result
@@ -276,7 +285,8 @@ public class Profile extends Fragment {
     }
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+         Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+        return bitmap;
     }
 
 }

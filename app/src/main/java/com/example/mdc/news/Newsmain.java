@@ -1,16 +1,26 @@
 package com.example.mdc.news;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
@@ -24,6 +34,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -31,17 +43,29 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.cocosw.bottomsheet.BottomSheet;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
-public class Newsmain extends AppCompatActivity
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.example.mdc.news.SimpleGestureFilter.SimpleGestureListener;
+import static android.R.attr.bitmap;
+
+public class Newsmain extends ActionBarActivity
         implements NavigationView.OnNavigationItemSelectedListener, Animation.AnimationListener {
+    private SimpleGestureFilter detector;
+    private GestureDetectorCompat gestureDetectorCompat;
     public static int navItemIndex = 0;
     private Button sendEmail;
     DrawerLayout drawer;
@@ -49,7 +73,9 @@ public class Newsmain extends AppCompatActivity
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private LinearLayout linear;
     ActionBarDrawerToggle toggle;
+    RelativeLayout rlayout;
     View view;
     private ViewGroup hiddenPanel;
     private boolean isPanelShown;
@@ -58,17 +84,23 @@ public class Newsmain extends AppCompatActivity
     LinearLayout llHeader, llFooter, llMain;
     int click = 0;
     Animation slideup, slidedown;
+    Fragment fragment;
     ActionBar actionBar;
+    File file;
+    FileOutputStream fileoutputstream;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_newsmain);
+
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             Firebase.setAndroidContext(this);
-            //  actionBar.setDisplayHomeAsUpEnabled(true);
+            linear = (LinearLayout) findViewById(R.id.linear);
             CardView cardView = (CardView) findViewById(R.id.card_view);
           //  llHeader = (LinearLayout) findViewById(R.id.llHeader);
           //  llFooter = (LinearLayout) findViewById(R.id.llFooter);
@@ -77,10 +109,72 @@ public class Newsmain extends AppCompatActivity
             hiddenPanel = (ViewGroup) findViewById(R.id.content_main);
             FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
             drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-       /* ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);*/
-            //toggle.syncState();
+            final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
+             /*   linear.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                      public void onClick(View v) {
+                      getSupportActionBar().show();
+                    //  boolean shouldGoInvisible = false;
+                   //     boolean drawerOpen = shouldGoInvisible;
+                       //getSupportActionBar().hide();
+                  //    hideMenuItems(menu, !drawerOpen);
+                   }
+                  });*/
+
+           bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+                @Override
+                public void onTabSelected(@IdRes int tabId) {
+                    if (tabId == R.id.tab_save) {
+
+                       /* View v1 = getWindow().getDecorView().getRootView();
+                        v1.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+                        v1.setDrawingCacheEnabled(false);
+                       ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 60, bytearrayoutputstream);
+                   file = new File( Environment.getExternalStorageDirectory() + "/screenshot.png");
+                        try
+                        {
+                            file.createNewFile();
+                            fileoutputstream = new FileOutputStream(file);
+                            fileoutputstream.write(bytearrayoutputstream.toByteArray());
+                            fileoutputstream.close();
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }*/
+                    }
+                    if(tabId == R.id.tab_share)
+                    {
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("text/plain");
+                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        i.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                        View v1 = getWindow().getDecorView().getRootView();
+                        v1.setDrawingCacheEnabled(true);
+                        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+                        v1.setDrawingCacheEnabled(false);
+                        try {
+                            File file = new File(getApplication().getExternalCacheDir(),"logicchip.png");
+                            FileOutputStream fOut = new FileOutputStream(file);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                            fOut.flush();
+                            fOut.close();
+                            file.setReadable(true, false);
+                            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                            intent.setType("image/png");
+                            startActivity(Intent.createChooser(intent, "Share image via"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
             displaySelectedScreen(R.id.nav_home);
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
@@ -96,7 +190,7 @@ public class Newsmain extends AppCompatActivity
                 }
             });
 
-            toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+           /* toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
                 //   @Override
                 public boolean onOptionsItemSelected(MenuItem item) {
@@ -111,29 +205,15 @@ public class Newsmain extends AppCompatActivity
                     }
                     return true;
                 }
-            };
+            };*/
             drawer.setDrawerListener(toggle);
-            toggle.syncState();
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setDisplayShowHomeEnabled(false);
-            frame.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                  //  openAndroidBottomMenu(view);
+          // toggle.syncState();
+         //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         //   getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-                    return true;
-                }
-            });
+          
 
-           /* cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isHidden) showSystemUi();
-                    else hideSystemUi();
-                }
-            });
-
-           /* slideup = AnimationUtils.loadAnimation(getApplicationContext(),
+           slideup = AnimationUtils.loadAnimation(getApplicationContext(),
                     R.anim.slide_up);
             slideup.setAnimationListener(this);
 
@@ -143,12 +223,12 @@ public class Newsmain extends AppCompatActivity
             slidedown.setAnimationListener(this);
 
 
-            llMain.setOnClickListener(new View.OnClickListener() {
+         /*rlayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (click == 0) {
                         llHeader.startAnimation(slidedown);
-                        llFooter.startAnimation(slideup);
+                        bottomBar.startAnimation(slideup);
 
                         llHeader.setVisibility(View.VISIBLE);
                         llFooter.setVisibility(View.VISIBLE);
@@ -166,82 +246,64 @@ public class Newsmain extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
+        gestureDetectorCompat = new GestureDetectorCompat(this, new MyGestureListener());
     }
-  /*  @Override
-    protected void onResume() {
-        super.onResume();
-
-        hideSystemUi();
-    }
-
-    private void hideSystemUi() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE
-        );
-        getSupportActionBar().hide();
-        isHidden = true;
-       // toggle.setText("Hide");
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureDetectorCompat.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 
-    private void showSystemUi() {
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_VISIBLE
-        );
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        //handle 'swipe left' action only
 
-        getSupportActionBar().show();
-        isHidden = false;
-    }
-       // toggle.setText("Show");
-  /*  public void slideUpDown(final View view) {
-        if (!isPanelShown()) {
-            // Show the panel
-            Animation bottomUp = AnimationUtils.loadAnimation(this,
-                    R.anim.slide_up);
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
 
-            hiddenPanel.startAnimation(bottomUp);
-            hiddenPanel.setVisibility(View.VISIBLE);
-        }
-        else {
-            // Hide the Panel
-            Animation bottomDown = AnimationUtils.loadAnimation(this,
-                    R.anim.slide_down);
+         /*
+         Toast.makeText(getBaseContext(),
+          event1.toString() + "\n\n" +event2.toString(),
+          Toast.LENGTH_SHORT).show();
+         */
 
-            hiddenPanel.startAnimation(bottomDown);
-            hiddenPanel.setVisibility(View.GONE);
-        }
-    }
+            if(event2.getX() < event1.getX()){
+                Toast.makeText(getBaseContext(),
+                        "Swipe left - startActivity()",
+                        Toast.LENGTH_SHORT).show();
 
-    private boolean isPanelShown() {
-        return hiddenPanel.getVisibility() == View.VISIBLE;
-    }
-
-    public void openAndroidBottomMenu(View view) {
-
-        new BottomSheet.Builder(this).sheet(R.menu.bottom_menu_item).listener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case R.id.menu_save:
-                        break;
-
-                    case R.id.menu_share:
-                        break;
-                }
+                //switch another activity
+                Intent intent = new Intent(Newsmain.this, Profile.class);
+                startActivity(intent);
             }
-        }).show();
-    }
-   /* @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        } else {
-            super.onBackPressed();
+
+            return true;
         }
-    }*/
-   @Override
+    }
+
+  @Override
+
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        // If the nav drawer is open, hide action items related to the content view
+        boolean shouldGoInvisible = true;
+        boolean drawerOpen = shouldGoInvisible;
+        getSupportActionBar().hide();
+        hideMenuItems(menu, !drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void hideMenuItems(Menu menu, boolean visible)
+    {
+
+        for(int i = 0; i < menu.size(); i++){
+
+            menu.getItem(i).setVisible(visible);
+
+        }
+    }
+
+    @Override
    public boolean onCreateOptionsMenu(Menu menu) {
        int menuToUse = R.menu.menu_right_side;
 
@@ -275,7 +337,7 @@ public class Newsmain extends AppCompatActivity
     private void displaySelectedScreen(int itemId) {
 
         //creating fragment object
-        Fragment fragment = null;
+
 
         //initializing the fragment object which is selected
         switch (itemId) {

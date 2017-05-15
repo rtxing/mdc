@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+        <tab
+            id="@+id/tab_save"
+            icon="@drawable/save"
+            title="Save" />
+        <tab
+            id="@+id/tab_share"
+            icon="@drawable/share"
+            title="Share" />
+
+    </tabs>

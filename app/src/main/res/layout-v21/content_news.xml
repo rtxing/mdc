@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp"
     android:layout_width="match_parent"
+    android:id="@+id/linear"
     android:layout_height="fill_parent"
     >
 
@@ -13,8 +13,9 @@
         android:layout_gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        card_view:cardCornerRadius="2dp"
-        card_view:contentPadding="2dp">
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="4dp"
+        card_view:cardMaxElevation="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,11 +28,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="70">
+                >
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="300dp"
                     android:id="@+id/imageView"
                     android:src="@drawable/loader"
                     android:scaleType="fitXY"
@@ -44,7 +45,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
                 android:orientation="vertical">
 
 
@@ -56,8 +56,9 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/textTitle"
                     android:layout_gravity="start"
-                    android:textStyle="bold"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-thick"
+                    android:paddingStart="3dp"
                     android:gravity="start"
                     android:textColor="#000"/>
 
@@ -65,27 +66,27 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
                     android:id="@+id/textView"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
+                    android:paddingStart="3dp"
+                    android:lineSpacingExtra="5dp"
+                    android:fontFamily="sans-serif-thick"
                     android:layout_gravity="start"
                     android:gravity="start"
-                    android:textStyle="normal"
-
-                    />
+                    android:textStyle="normal" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/textlink"
-                    android:text="Read More....."
-
-                    android:textSize="22sp"
+                    android:text="Read More..."
+                    android:textSize="18sp"
                     android:textStyle="normal"
                     android:layout_marginTop="15dp"
-
                     android:layout_gravity="right"
                     android:gravity="right"
-                    android:textColor="#ff6600"/>
+                    android:textColor="#FF8533"/>
             </LinearLayout>
 
         </LinearLayout>
