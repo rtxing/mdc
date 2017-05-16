@@ -1,5 +1,6 @@
 package com.example.mdc.news;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -96,7 +97,9 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                    Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+                                    Toast.makeText(getApplicationContext(), "Login again with credentials", Toast.LENGTH_SHORT).show();
+                                    ActivityCompat.startActivityForResult(SignupActivity.this, i, 0 , null);
                                     finish();
                                 }
                             }

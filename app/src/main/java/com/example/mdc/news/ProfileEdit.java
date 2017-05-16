@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ProfileEdit extends AppCompatActivity implements View.OnClickListener{
+public class ProfileEdit extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     EditText etname,etemail,etphone,etcity,etdob;
@@ -66,55 +66,48 @@ public class ProfileEdit extends AppCompatActivity implements View.OnClickListen
 
         //adding listener to button
       // logout.setOnClickListener(this);
-      submit.setOnClickListener(this);
+      submit.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              String name = etname.getText().toString().trim();
+              String dob = etdob.getText().toString().trim();
+              String phone = etphone.getText().toString().trim();
+              String email = etemail.getText().toString().trim();
+              String city = etcity.getText().toString().trim();
+
+              String id = databaseReference.push().getKey();
+              FirebaseUser user = firebaseAuth.getCurrentUser();
+              //creating a userinformation object
+              UserProfile userInformation = new UserProfile(user.getUid(), name, dob, phone, email, city);
+
+              //getting the current logged in user
+              if (name != null && dob != null && phone != null && email != null && city != null) {
+                  databaseReference.child(user.getUid()).child("name").setValue(name);
+                  databaseReference.child(user.getUid()).child("dob").setValue(dob);
+                  databaseReference.child(user.getUid()).child("phone").setValue(phone);
+                  databaseReference.child(user.getUid()).child("email").setValue(email);
+                  databaseReference.child(user.getUid()).child("city").setValue(city);
+                  databaseReference.child(user.getUid()).child("pid").setValue(user.getUid());
+                  SharedPreferences sharedPreferences = getSharedPreferences(Session.PREFS_NAME, 0);
+                  SharedPreferences.Editor editor = sharedPreferences.edit();
+                  editor.putString(Session.KEY_CITY, city);
+                  editor.putString(Session.KEY_NAME, name);
+                  editor.commit();
+
+                  //displaying a success toast
+                  Toast.makeText(ProfileEdit.this, "Profile Updated...!!", Toast.LENGTH_LONG).show();
+              }
+              else {
+                  Toast.makeText(ProfileEdit.this, "Enter all fields...!!", Toast.LENGTH_LONG).show();
+              }
+          }
+      });
     }
     private void saveUserInformation() {
         //Getting values from database
-        String name = etname.getText().toString().trim();
-        String dob = etdob.getText().toString().trim();
-        String phone = etphone.getText().toString().trim();
-        String email = etemail.getText().toString().trim();
-        String city = etcity.getText().toString().trim();
-
-        String id = databaseReference.push().getKey();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        //creating a userinformation object
-        UserProfile userInformation = new UserProfile(user.getUid(), name, dob, phone, email, city);
-
-        //getting the current logged in user
-        databaseReference.child(user.getUid()).child("name").setValue(name);
-        databaseReference.child(user.getUid()).child("dob").setValue(dob);
-        databaseReference.child(user.getUid()).child("phone").setValue(phone);
-        databaseReference.child(user.getUid()).child("email").setValue(email);
-        databaseReference.child(user.getUid()).child("city").setValue(city);
-        databaseReference.child(user.getUid()).child("pid").setValue(user.getUid());
-        SharedPreferences sharedPreferences = getSharedPreferences(Session.PREFS_NAME, 0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Session.KEY_CITY, city);
-        editor.putString(Session.KEY_NAME, name);
-        editor.commit();
-
-        //displaying a success toast
-         Toast.makeText(this, "Profile Updated...!!", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onClick(View view) {
-        //if logout is pressed
-    /*  if (view == logout) {
-            //logging out the user
-            firebaseAuth.signOut();
-            //closing activity
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-*/
-        if(view == submit){
-            saveUserInformation();
-        }
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // automatically handle clicks on the Home/Up button, so long

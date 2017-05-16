@@ -190,7 +190,7 @@ public class Newsmain extends ActionBarActivity
                 }
             });
 
-           /* toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
                 //   @Override
                 public boolean onOptionsItemSelected(MenuItem item) {
@@ -205,11 +205,11 @@ public class Newsmain extends ActionBarActivity
                     }
                     return true;
                 }
-            };*/
+            };
             drawer.setDrawerListener(toggle);
-          // toggle.syncState();
-         //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         //   getSupportActionBar().setDisplayShowHomeEnabled(true);
+          toggle.syncState();
+      getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
 
           
 
@@ -246,42 +246,11 @@ public class Newsmain extends ActionBarActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gestureDetectorCompat = new GestureDetectorCompat(this, new MyGestureListener());
-    }
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gestureDetectorCompat.onTouchEvent(event);
-        return super.onTouchEvent(event);
+
     }
 
-    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-        //handle 'swipe left' action only
 
-        @Override
-        public boolean onFling(MotionEvent event1, MotionEvent event2,
-                               float velocityX, float velocityY) {
-
-         /*
-         Toast.makeText(getBaseContext(),
-          event1.toString() + "\n\n" +event2.toString(),
-          Toast.LENGTH_SHORT).show();
-         */
-
-            if(event2.getX() < event1.getX()){
-                Toast.makeText(getBaseContext(),
-                        "Swipe left - startActivity()",
-                        Toast.LENGTH_SHORT).show();
-
-                //switch another activity
-                Intent intent = new Intent(Newsmain.this, Profile.class);
-                startActivity(intent);
-            }
-
-            return true;
-        }
-    }
-
-  @Override
+ /* @Override
 
     public boolean onPrepareOptionsMenu(Menu menu) {
 
@@ -301,7 +270,7 @@ public class Newsmain extends ActionBarActivity
             menu.getItem(i).setVisible(visible);
 
         }
-    }
+    }*/
 
     @Override
    public boolean onCreateOptionsMenu(Menu menu) {

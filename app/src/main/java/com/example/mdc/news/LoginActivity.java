@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements
 
         private GoogleApiClient mGoogleApiClient;
         private ProgressDialog mProgressDialog;
-
+        int regVar;
         //private SignInButton btnSignIn;
         private Button btnSignOut, btnRevokeAccess;
         private LinearLayout llProfileLayout;
@@ -89,6 +89,12 @@ public class LoginActivity extends AppCompatActivity implements
                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 setContentView(R.layout.activity_login);
                 try {
+                        if (getCallingActivity() != null) {
+                                regVar = 1;
+                        }
+                        else {
+                                regVar = 0;
+                        }
                         btnSignIn = (ImageView) findViewById(R.id.b_gmail);
                         //    btnSignOut = (Button) findViewById(R.id.btn_sign_out);
                         //  btnRevokeAccess = (Button) findViewById(R.id.btn_revoke_access);
@@ -115,8 +121,7 @@ public class LoginActivity extends AppCompatActivity implements
 
                         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
-        if (auth.getCurrentUser() != null) {
+                        if ((auth.getCurrentUser() != null) && (regVar == 0)) {
             startActivity(new Intent(LoginActivity.this, Newsmain.class));
             finish();
         }
