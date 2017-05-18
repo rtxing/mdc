@@ -1,4 +1,4 @@
-package com.example.mdc.news;
+package com.example.mdc.news.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,6 +20,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mdc.news.ChangePassword;
+import com.example.mdc.news.ContactsActivity;
+import com.example.mdc.news.LoginActivity;
+import com.example.mdc.news.ProfileEdit;
+import com.example.mdc.news.ProfileNameEdit;
+import com.example.mdc.news.Profilepickdisplay;
+import com.example.mdc.news.R;
+import com.example.mdc.news.Session;
+import com.example.mdc.news.UserProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +43,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,32 +52,39 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 import static java.lang.System.out;
 
 public class Profile extends Fragment {
-    private static final int RESULT_OK = 100;
-    ImageView img_editprofile;
-    TextView tv_editprofile,tv_editedname,tv_editlive,tv_friends;
-    SharedPreferences sharedPreferences;
-    ImageView imagecamera,nameedit,changepswd;
-    boolean isImageFitToScreen;
-    private FirebaseAuth firebaseAuth;
-    de.hdodenhof.circleimageview.CircleImageView imageprofile;
-    private static final int SELECT_PICTURE = 100;
-    private static final int PICK_IMAGE_REQUEST = 234;
-    private Uri filePath;
     static final int GALLARY_REQUEST_CODE = 213;
     static final int CROP_PICK = 321;
+    private static final int RESULT_OK = 100;
+    private static final int SELECT_PICTURE = 100;
+    private static final int PICK_IMAGE_REQUEST = 234;
+    ImageView img_editprofile;
+    TextView tv_editprofile, tv_editedname, tv_editlive, tv_friends;
+    SharedPreferences sharedPreferences;
+    ImageView imagecamera, nameedit, changepswd;
+    boolean isImageFitToScreen;
+    de.hdodenhof.circleimageview.CircleImageView imageprofile;
     ProgressDialog pd;
     String mypick;
     Bitmap bitmap;
-    ArrayList<UserProfile> userProfiles =new ArrayList<>();
+    ArrayList<UserProfile> userProfiles = new ArrayList<>();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     //creating a storage reference. Replace the below URL with your Firebase storage URL.
     //StorageReference storageRef = storage.getReferenceFromUrl("gs://cricket-b71a9.appspot.com");
-    DatabaseReference ref,ref1,ref2;
-    DatabaseReference databaseReference,childref;
+    DatabaseReference ref, ref1, ref2;
+    DatabaseReference databaseReference, childref;
     FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
+    private Uri filePath;
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+        return bitmap;
+    }
+
     @Override
-    public View onCreateView(final LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-       // FacebookSdk.sdkInitialize(getApplicationContext());
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // FacebookSdk.sdkInitialize(getApplicationContext());
         super.onCreate(savedInstanceState);
 
         final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
@@ -85,13 +102,13 @@ public class Profile extends Fragment {
         tv_friends = (TextView) rootView.findViewById(R.id.tv_frnds);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-      tv_friends.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              Intent intent = new Intent(getActivity(), ContactsActivity.class);
-              startActivity(intent);
-          }
-      });
+        tv_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ContactsActivity.class);
+                startActivity(intent);
+            }
+        });
         changepswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,36 +127,36 @@ public class Profile extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Profile");
         final SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Session.PREFS_NAME, 0);
         String name = sharedPreferences.getString(Session.KEY_NAME, "Edit your Name");
-      tv_editedname.setText(name);
-        try{
+        tv_editedname.setText(name);
+        try {
             String mypick = sharedPreferences.getString(Session.KEY_PROFILE_PICK, "Image Not Available");
-            Log.e("image","image");
+            Log.e("image", "image");
             //decodeFromFirebaseBase64(mypick);
             byte[] decodedString = Base64.decode(mypick, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             imageprofile.setImageBitmap(decodedByte);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             imageprofile.setImageResource(R.drawable.profile2);
-            Log.e("mobile::","drawable");
+            Log.e("mobile::", "drawable");
 
         }
         ref = FirebaseDatabase.getInstance()
                 .getReference().child("Profile")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("name");
-              Log.e("profileref", String.valueOf(ref));
+        Log.e("profileref", String.valueOf(ref));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Log.e("profilesnapshot", String.valueOf(snapshot));
-              //  for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                //  for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                 String name = (String) snapshot.getValue();
-                  //  UserProfile userProfile = snapshot.getValue(UserProfile.class);
-                    String string = "Name: " + name;
-                    Log.e("name", String.valueOf(name));
-                    tv_editedname.setText(name);
-               // }
+                //  UserProfile userProfile = snapshot.getValue(UserProfile.class);
+                String string = "Name: " + name;
+                Log.e("name", String.valueOf(name));
+                tv_editedname.setText(name);
+                // }
             }
 
             @Override
@@ -172,20 +189,20 @@ public class Profile extends Fragment {
         img_editprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ProfileEdit.class));
+                startActivity(new Intent(getActivity(), ProfileEdit.class));
             }
         });
         tv_editprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),ProfileEdit.class));
+                startActivity(new Intent(getActivity(), ProfileEdit.class));
             }
         });
 
         nameedit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ProfileNameEdit.class);
+                Intent intent = new Intent(getActivity(), ProfileNameEdit.class);
                 startActivity(intent);
             }
         });
@@ -197,12 +214,11 @@ public class Profile extends Fragment {
                 startActivity(intent);
 
 
-
-                if(isImageFitToScreen) {
+                if (isImageFitToScreen) {
                     // isImageFitToScreen=false;
                     //profilepick.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     //profilepick.setAdjustViewBounds(true);
-                }else{
+                } else {
                     //isImageFitToScreen=true;
                     // profilepick.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     //profilepick.setScaleType(ImageView.ScaleType.CENTER);
@@ -212,24 +228,25 @@ public class Profile extends Fragment {
         imagecamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             imagecamera.setClickable(false);
-               // Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-               // photoPickerIntent.setType("image/*");
-               // photoPickerIntent.putExtra("return-data", true);
-               // startActivityForResult(photoPickerIntent, GALLARY_REQUEST_CODE);
+                imagecamera.setClickable(false);
+                // Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                // photoPickerIntent.setType("image/*");
+                // photoPickerIntent.putExtra("return-data", true);
+                // startActivityForResult(photoPickerIntent, GALLARY_REQUEST_CODE);
 
-               showFileChooser();
+                showFileChooser();
             }
         });
         return rootView;
     }
+
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
 
         intent.setAction(Intent.ACTION_GET_CONTENT);
 
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"),  GALLARY_REQUEST_CODE);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLARY_REQUEST_CODE);
     }
 
     //handling the image chooser activity result
@@ -237,10 +254,10 @@ public class Profile extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("image", "image");
         super.onActivityResult(requestCode, resultCode, data);
-        if ( data != null && data.getData() != null) {
+        if (data != null && data.getData() != null) {
             Log.e("image", "image");
 
-          filePath = data.getData();
+            filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
 
@@ -268,7 +285,7 @@ public class Profile extends Fragment {
 
     public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, stream);
         byte[] byteFormat = stream.toByteArray();
         String imageEncoded = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
         databaseReference.child(user.getUid()).child("image").setValue(imageEncoded);
@@ -282,11 +299,6 @@ public class Profile extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Session.KEY_PROFILE_PICK, imageEncoded);
         editor.commit();
-    }
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-         Bitmap bitmap = BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
-        return bitmap;
     }
 
 }

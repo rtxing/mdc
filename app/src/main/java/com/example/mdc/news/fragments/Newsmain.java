@@ -1,18 +1,11 @@
-package com.example.mdc.news;
+package com.example.mdc.news.fragments;
 
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GestureDetectorCompat;
@@ -20,22 +13,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -44,25 +33,22 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.example.mdc.news.LoginActivity;
+import com.example.mdc.news.Match_recycler;
+import com.example.mdc.news.NewsFragment;
+import com.example.mdc.news.R;
+import com.example.mdc.news.SimpleGestureFilter;
+import com.example.mdc.news.fragments.Profile;
 import com.firebase.client.Firebase;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import com.example.mdc.news.SimpleGestureFilter.SimpleGestureListener;
-import static android.R.attr.bitmap;
 
-public class Newsmain extends ActionBarActivity
+public class Newsmain extends Fragment
         implements NavigationView.OnNavigationItemSelectedListener, Animation.AnimationListener {
     private SimpleGestureFilter detector;
     private GestureDetectorCompat gestureDetectorCompat;
@@ -90,26 +76,40 @@ public class Newsmain extends ActionBarActivity
     FileOutputStream fileoutputstream;
     private Menu menu;
 
+
+    @Nullable
     @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.activity_newsmain, container, false);
+        init(view);
+        return view;
+    }
+
+
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);*/
+
+
+    private void init(View view){
         //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        setContentView(R.layout.activity_newsmain);
+        //setContentView(R.layout.activity_newsmain);
 
         try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            Firebase.setAndroidContext(this);
-            linear = (LinearLayout) findViewById(R.id.linear);
-            CardView cardView = (CardView) findViewById(R.id.card_view);
+            Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+            //setSupportActionBar(toolbar);
+            Firebase.setAndroidContext(getActivity());
+            linear = (LinearLayout) view.findViewById(R.id.linear);
+            CardView cardView = (CardView) view.findViewById(R.id.card_view);
           //  llHeader = (LinearLayout) findViewById(R.id.llHeader);
           //  llFooter = (LinearLayout) findViewById(R.id.llFooter);
             firebaseAuth = FirebaseAuth.getInstance();
           //  llMain = (LinearLayout) findViewById(R.id.llMain);
-            hiddenPanel = (ViewGroup) findViewById(R.id.content_main);
-            FrameLayout frame = (FrameLayout) findViewById(R.id.content_frame);
-            drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            final BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+            hiddenPanel = (ViewGroup) view.findViewById(R.id.content_main);
+            FrameLayout frame = (FrameLayout) view.findViewById(R.id.content_frame);
+            drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
+            final BottomBar bottomBar = (BottomBar) view.findViewById(R.id.bottomBar);
 
              /*   linear.setOnClickListener(new View.OnClickListener() {
                          @Override
@@ -152,12 +152,12 @@ public class Newsmain extends ActionBarActivity
                         i.setType("text/plain");
                         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         i.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                        View v1 = getWindow().getDecorView().getRootView();
+                        View v1 = getActivity().getWindow().getDecorView().getRootView();
                         v1.setDrawingCacheEnabled(true);
                         Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
                         v1.setDrawingCacheEnabled(false);
                         try {
-                            File file = new File(getApplication().getExternalCacheDir(),"logicchip.png");
+                            File file = new File(getActivity().getApplication().getExternalCacheDir(),"logicchip.png");
                             FileOutputStream fOut = new FileOutputStream(file);
                             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
                             fOut.flush();
@@ -176,7 +176,7 @@ public class Newsmain extends ActionBarActivity
             });
 
             displaySelectedScreen(R.id.nav_home);
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
@@ -190,7 +190,7 @@ public class Newsmain extends ActionBarActivity
                 }
             });
 
-            toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            toggle = new ActionBarDrawerToggle(getActivity(), drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
 
                 //   @Override
                 public boolean onOptionsItemSelected(MenuItem item) {
@@ -208,7 +208,8 @@ public class Newsmain extends ActionBarActivity
             };
             drawer.setDrawerListener(toggle);
           toggle.syncState();
-      getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+            /*BS getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
           
@@ -220,7 +221,7 @@ public class Newsmain extends ActionBarActivity
 
             slidedown = AnimationUtils.loadAnimation(getApplicationContext(),
                     R.anim.slide_down);
-            slidedown.setAnimationListener(this);
+            slidedown.setAnimationListener(this);*/
 
 
          /*rlayout.setOnClickListener(new View.OnClickListener() {
@@ -272,7 +273,7 @@ public class Newsmain extends ActionBarActivity
         }
     }*/
 
-    @Override
+    /*BS @Override
    public boolean onCreateOptionsMenu(Menu menu) {
        int menuToUse = R.menu.menu_right_side;
 
@@ -294,7 +295,7 @@ public class Newsmain extends ActionBarActivity
        });
        return true;
       // return super.onCreateOptionsMenu(menu);
-   }
+   }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -333,8 +334,8 @@ public class Newsmain extends ActionBarActivity
                 //setToolbarTitle();
                 Log.e("hi","play");
                 firebaseAuth.signOut();
-                finish();
-                startActivity(new Intent(this, LoginActivity.class));
+                getActivity().finish();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
             //default:
                // fragment = new NewsFragment();
@@ -343,14 +344,14 @@ public class Newsmain extends ActionBarActivity
 
         //replacing the fragment
         if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
       }
 

@@ -19,15 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.facebook.login.widget.LoginButton;
+import com.example.mdc.news.activities.HomeActivity;
+import com.example.mdc.news.fragments.Newsmain;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -122,7 +121,8 @@ public class LoginActivity extends AppCompatActivity implements
                         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
                         if ((auth.getCurrentUser() != null) && (regVar == 0)) {
-            startActivity(new Intent(LoginActivity.this, Newsmain.class));
+            //startActivity(new Intent(LoginActivity.this, Newsmain.class));
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }
 
@@ -198,7 +198,8 @@ public class LoginActivity extends AppCompatActivity implements
                                                                                 Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                                                         }
                                                                 } else {
-                                                                        Intent intent = new Intent(LoginActivity.this, Newsmain.class);
+                                                                        //Intent intent = new Intent(LoginActivity.this, Newsmain.class);
+                                                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                                                         startActivity(intent);
                                                                         finish();
                                                                 }

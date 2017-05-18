@@ -70,11 +70,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Newsmain"
+            android:name=".fragments.Newsmain"
             android:label="@string/title_activity_newsmain"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+
         <activity android:name=".Ads"
             android:screenOrientation="portrait"/>
         <activity
@@ -98,7 +107,7 @@
             android:label="Over by Over"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Profile"
+            android:name=".fragments.Profile"
             android:label="Profile"
             android:screenOrientation="portrait"/>
         <activity android:name=".ProfileEdit"
